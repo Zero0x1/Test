@@ -1,11 +1,24 @@
 #!/bin/bash
 
-array_login=($1)
-array_pass=($2)
+if [[ -f $1 ]]; then
+  while read line; do
+    array_login=($line)
+  done < $1
+fi
+
+if [[ -f $2 ]]; then
+  while read line; do
+    array_pass=($line)
+  done < $2
+fi
 
 url=$3
 cookie=$4
 referer=$5
+
+if [[ $1 = "-h" || $1 = "--help" ]]; then
+  echo "Exemple ./brute.sh file_login file_password url cookie,session referer"
+fi
 
 for i in ${array_login[@]}
 do
